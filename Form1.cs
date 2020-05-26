@@ -108,11 +108,68 @@ namespace KursovayRabota
 
         private void button1_Click(object sender, EventArgs e)
         {
-            chart1.Series["1 образ"].Points.Clear();
-            chart1.Series["2 образ"].Points.Clear();
-            chart1.Series["3 образ"].Points.Clear();
+            if (radioButton1.Checked)
+            {
 
-            Random rnd = new Random();
+                chart1.Series["1 образ"].Points.Clear();
+                chart1.Series["2 образ"].Points.Clear();
+                chart1.Series["3 образ"].Points.Clear();
+                chart1.Series["Материал экзамена"].Points.Clear();
+
+                Random rnd = new Random();
+                int jx1 = 1;
+                int jy1 = 26;
+
+                int jx2 = 51;
+                int jy2 = 76;
+
+                int jx3 = 101;
+                int jy3 = 126;
+
+                int jxex = 151;
+                int jyex = 176;
+
+
+                for (int i = 0; i < 25; i++)
+                {
+                    x1[i] = Convert.ToInt32(rnd.NextDouble() * (65 - 55) + 55);
+                    panel1.Controls["textBox" + jx1].Text = Convert.ToString(x1[i]);
+                    y1[i] = Convert.ToInt32(rnd.NextDouble() * (55 - 45) + 45);
+                    panel1.Controls["textBox" + jy1].Text = Convert.ToString(y1[i]);
+                    chart1.Series["1 образ"].Points.AddXY(x1[i], y1[i]);
+
+                    x2[i] = Convert.ToInt32(rnd.NextDouble() * (75 - 65) + 65);
+                    panel1.Controls["textBox" + jx2].Text = Convert.ToString(x2[i]);
+                    y2[i] = Convert.ToInt32(rnd.NextDouble() * (65 - 55) + 55);
+                    panel1.Controls["textBox" + jy2].Text = Convert.ToString(y2[i]);
+                    chart1.Series["2 образ"].Points.AddXY(x2[i], y2[i]);
+
+                    x3[i] = Convert.ToInt32(rnd.NextDouble() * (65 - 55) + 55);
+                    panel1.Controls["textBox" + jx3].Text = Convert.ToString(x3[i]);
+                    y3[i] = Convert.ToInt32(rnd.NextDouble() * (75 - 65) + 65);
+                    panel1.Controls["textBox" + jy3].Text = Convert.ToString(y3[i]);
+                    chart1.Series["3 образ"].Points.AddXY(x3[i], y3[i]);
+
+                    ex[i] = Convert.ToInt32(rnd.NextDouble() * (75 - 54) + 54);
+                    panel1.Controls["textBox" + jxex].Text = Convert.ToString(ex[i]);
+                    ey[i] = Convert.ToInt32(rnd.NextDouble() * (75 - 45) + 45);
+                    panel1.Controls["textBox" + jyex].Text = Convert.ToString(ey[i]);
+                    chart1.Series["Материал экзамена"].Points.AddXY(ex[i], ey[i]);
+
+                    jx1++;
+                    jy1++;
+                    jx2++;
+                    jy2++;
+                    jx3++;
+                    jy3++;
+                    jxex++;
+                    jyex++;
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
             int jx1 = 1;
             int jy1 = 26;
 
@@ -125,27 +182,14 @@ namespace KursovayRabota
             int jxex = 151;
             int jyex = 176;
 
-
             for (int i = 0; i < 25; i++)
             {
-                x1[i] = Convert.ToInt32(rnd.NextDouble() * (65 - 55) + 55);
-                panel1.Controls["textBox" + jx1].Text = Convert.ToString(x1[i]);
-                y1[i] = Convert.ToInt32(rnd.NextDouble() * (55 - 45) + 45);
-                panel1.Controls["textBox" + jy1].Text = Convert.ToString(y1[i]);
-                chart1.Series["1 образ"].Points.AddXY(x1[i], y1[i]);
-
-                x2[i] = Convert.ToInt32(rnd.NextDouble() * (75 - 65) + 65);
-                panel1.Controls["textBox" + jx2].Text = Convert.ToString(x2[i]);
-                y2[i] = Convert.ToInt32(rnd.NextDouble() * (65 - 55) + 55);
-                panel1.Controls["textBox" + jy2].Text = Convert.ToString(y2[i]);
-                chart1.Series["2 образ"].Points.AddXY(x2[i], y2[i]);
-
-                x3[i] = Convert.ToInt32(rnd.NextDouble() * (65 - 55) + 55);
-                panel1.Controls["textBox" + jx3].Text = Convert.ToString(x3[i]);
-                y3[i] = Convert.ToInt32(rnd.NextDouble() * (75 - 65) + 65);
-                panel1.Controls["textBox" + jy3].Text = Convert.ToString(y3[i]);
-                chart1.Series["3 образ"].Points.AddXY(x3[i], y3[i]);
-
+                panel1.Controls["textBox" + jx1].Text = "";
+                panel1.Controls["textBox" + jy1].Text = "";
+                panel1.Controls["textBox" + jx2].Text = "";
+                panel1.Controls["textBox" + jy2].Text = "";
+                panel1.Controls["textBox" + jx3].Text = "";
+                panel1.Controls["textBox" + jy3].Text = "";
                 jx1++;
                 jy1++;
                 jx2++;
@@ -156,7 +200,10 @@ namespace KursovayRabota
                 jyex++;
             }
 
-            //string sad = panel1.Controls["textBox1"].Text;
+
+            chart1.Series["1 образ"].Points.Clear();
+            chart1.Series["2 образ"].Points.Clear();
+            chart1.Series["3 образ"].Points.Clear();
         }
     }
 }
