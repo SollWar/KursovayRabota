@@ -446,7 +446,12 @@ namespace KursovayRabota
 
 
             //
-
+            xline1n = ex.Min();
+            xline1k = ex.Max();
+            yline1n = (p1 - b1[0,0] * xline1n) / b1[1, 0];
+            yline1k = (p1 - b1[0, 0] * xline1k) / b1[1, 0];
+            chart1.Series["Линия 1"].Points.AddXY(xline1n, yline1n);
+            chart1.Series["Линия 1"].Points.AddXY(xline1k, yline1k);
             //
         }
     }
