@@ -117,6 +117,9 @@ namespace KursovayRabota
                 chart1.Series["2 образ"].Points.Clear();
                 chart1.Series["3 образ"].Points.Clear();
                 chart1.Series["Материал экзамена"].Points.Clear();
+                chart1.Series["Линия 1"].Points.Clear();
+                chart1.Series["Линия 2"].Points.Clear();
+                chart1.Series["Линия 3"].Points.Clear();
 
                 Random rnd = new Random();
                 int jx1 = 1;
@@ -172,6 +175,10 @@ namespace KursovayRabota
 
         private void button2_Click(object sender, EventArgs e)
         {
+            chart1.Series["Линия 1"].Points.Clear();
+            chart1.Series["Линия 2"].Points.Clear();
+            chart1.Series["Линия 3"].Points.Clear();
+
             int jx1 = 1;
             int jy1 = 26;
 
@@ -360,7 +367,7 @@ namespace KursovayRabota
             ObrSigmL2[0, 0] = SigmL2[1, 1] / (SigmL2[0, 0] * SigmL2[1, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
             ObrSigmL2[0, 1] = SigmL2[0, 1] / (SigmL2[0, 1] * SigmL2[1, 0] - SigmL2[0, 0] * SigmL2[1, 1]);
             ObrSigmL2[1, 0] = SigmL2[1, 0] / (SigmL2[0, 1] * SigmL2[1, 0] - SigmL2[0, 0] * SigmL2[1, 1]);
-            ObrSigmL1[1, 1] = SigmL2[0, 0] / (SigmL2[0, 0] * SigmL2[1, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
+            ObrSigmL2[1, 1] = SigmL2[0, 0] / (SigmL2[0, 0] * SigmL2[1, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
             //------//
             ObrSigmL3[0, 0] = SigmL3[1, 1] / (SigmL3[0, 0] * SigmL3[1, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
             ObrSigmL3[0, 1] = SigmL3[0, 1] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
@@ -403,6 +410,7 @@ namespace KursovayRabota
 
 
             //
+
             b1[0, 0] = ObrSigmL1[0, 0] * M1_M2[0, 0] + ObrSigmL1[0, 1] * M1_M2[1, 0];
             b1[1, 0] = ObrSigmL1[1, 0] * M1_M2[0, 0] + ObrSigmL1[1, 1] * M1_M2[1, 0];
 
@@ -435,23 +443,38 @@ namespace KursovayRabota
             vrm3[0, 0] = M1___M3[0, 0] * ObrSigmL3[0, 0] + M1___M3[0, 1] * ObrSigmL3[0, 1];
             vrm3[0, 1] = M1___M3[0, 0] * ObrSigmL3[0, 1] + M1___M3[0, 1] * ObrSigmL3[1, 1];
 
+
             vr1 = vrm1[0, 0] * M1_M2[0, 0] + vrm1[0, 1] * M1_M2[1, 0];
             vr2 = vrm2[0, 0] * M2_M3[0, 0] + vrm2[0, 1] * M2_M3[1, 0];
             vr3 = vrm3[0, 0] * M1_M3[0, 0] + vrm3[0, 1] * M1_M3[1, 0];
 
             p1 = vr1 * (-0.5); p2 = vr2 * (-0.5); p3 = vr3 * (-0.5);
-            label8.Text += ($"\nvr1 = {vr1:0.##} vr2 = {vr2:0.##} vr3 = {vr3:0.##}");
+            label8.Text += ($"\nvr1 = {vr1} vr2 = {vr2:0.##} vr3 = {vr3:0.##}");
             label8.Text += ($"\np1 = {p1:0.##} p2 = {p2:0.##} p3 = {p3:0.##}");
             //
 
 
             //
-            xline1n = ex.Min();
-            xline1k = ex.Max();
-            yline1n = (p1 - b1[0,0] * xline1n) / b1[1, 0];
-            yline1k = (p1 - b1[0, 0] * xline1k) / b1[1, 0];
+            xline1n = ex.Min(); xline2n = ex.Min(); xline3n = ex.Min();
+            xline1k = ex.Max(); xline2k = ex.Max(); xline3k = ex.Max();
+
+            yline1n = (-p1 - b1[0,0] * xline1n) / b1[1, 0];
+            yline1k = (-p1 - b1[0, 0] * xline1k) / b1[1, 0];
             chart1.Series["Линия 1"].Points.AddXY(xline1n, yline1n);
             chart1.Series["Линия 1"].Points.AddXY(xline1k, yline1k);
+
+            yline2n = (-p2 - b2[0, 0] * xline2n) / b2[1, 0];
+            yline2k = (-p2 - b2[0, 0] * xline2k) / b2[1, 0];
+            chart1.Series["Линия 2"].Points.AddXY(xline2n, yline2n);
+            chart1.Series["Линия 2"].Points.AddXY(xline2k, yline2k);
+
+            yline3n = (-p3 - b3[0, 0] * xline3n) / b3[1, 0];
+            yline3k = (-p3 - b3[0, 0] * xline3k) / b3[1, 0];
+            chart1.Series["Линия 3"].Points.AddXY(xline3n, yline3n);
+            chart1.Series["Линия 3"].Points.AddXY(xline3k, yline3k);
+
+            //label8.Text += ($"\nyline1n = {yline1n:0.##} yline1k = {yline1k:0.##}");
+
             //
         }
     }
