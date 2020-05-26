@@ -171,8 +171,14 @@ namespace KursovayRabota
                     jyex++;
                 }
             }
-            else
+            if (radioButton2.Checked)
             {
+                bool point = true;
+                for (int i = 1; i <= 200; i++)
+                    if (panel1.Controls["textBox" + i].Text == "")
+                        point = false;
+                if (point == true)
+                { 
                 int jx1 = 1;
                 int jy1 = 26;
 
@@ -185,34 +191,37 @@ namespace KursovayRabota
                 int jxex = 151;
                 int jyex = 176;
 
-                for (int i = 0; i < 25; i++)
-                {
-                    x1[i] = Convert.ToInt32(panel1.Controls["textBox" + jx1].Text);
-                    y1[i] = Convert.ToInt32(panel1.Controls["textBox" + jy1].Text);
-                    chart1.Series["1 образ"].Points.AddXY(x1[i], y1[i]);
+                    for (int i = 0; i < 25; i++)
+                    {
+                        x1[i] = Convert.ToInt32(panel1.Controls["textBox" + jx1].Text);
+                        y1[i] = Convert.ToInt32(panel1.Controls["textBox" + jy1].Text);
+                        chart1.Series["1 образ"].Points.AddXY(x1[i], y1[i]);
 
-                    x2[i] = Convert.ToInt32(panel1.Controls["textBox" + jx2].Text);
-                    y2[i] = Convert.ToInt32(panel1.Controls["textBox" + jy2].Text);
-                    chart1.Series["2 образ"].Points.AddXY(x2[i], y2[i]);
+                        x2[i] = Convert.ToInt32(panel1.Controls["textBox" + jx2].Text);
+                        y2[i] = Convert.ToInt32(panel1.Controls["textBox" + jy2].Text);
+                        chart1.Series["2 образ"].Points.AddXY(x2[i], y2[i]);
 
-                    x3[i] = Convert.ToInt32(panel1.Controls["textBox" + jx3].Text);
-                    y3[i] = Convert.ToInt32(panel1.Controls["textBox" + jy3].Text);
-                    chart1.Series["3 образ"].Points.AddXY(x3[i], y3[i]);
+                        x3[i] = Convert.ToInt32(panel1.Controls["textBox" + jx3].Text);
+                        y3[i] = Convert.ToInt32(panel1.Controls["textBox" + jy3].Text);
+                        chart1.Series["3 образ"].Points.AddXY(x3[i], y3[i]);
 
-                    ex[i] = Convert.ToInt32(panel1.Controls["textBox" + jxex].Text);
-                    ey[i] = Convert.ToInt32(panel1.Controls["textBox" + jyex].Text);
-                    chart1.Series["Материал экзамена"].Points.AddXY(ex[i], ey[i]);
+                        ex[i] = Convert.ToInt32(panel1.Controls["textBox" + jxex].Text);
+                        ey[i] = Convert.ToInt32(panel1.Controls["textBox" + jyex].Text);
+                        chart1.Series["Материал экзамена"].Points.AddXY(ex[i], ey[i]);
 
-                    jx1++;
-                    jy1++;
-                    jx2++;
-                    jy2++;
-                    jx3++;
-                    jy3++;
-                    jxex++;
-                    jyex++;
+                        jx1++;
+                        jy1++;
+                        jx2++;
+                        jy2++;
+                        jx3++;
+                        jy3++;
+                        jxex++;
+                        jyex++;
+                    }
                 }
             }
+            else
+            { }
         }
 
         private void button2_Click(object sender, EventArgs e)
