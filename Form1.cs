@@ -171,13 +171,52 @@ namespace KursovayRabota
                     jyex++;
                 }
             }
+            else
+            {
+                int jx1 = 1;
+                int jy1 = 26;
+
+                int jx2 = 51;
+                int jy2 = 76;
+
+                int jx3 = 101;
+                int jy3 = 126;
+
+                int jxex = 151;
+                int jyex = 176;
+
+                for (int i = 0; i < 25; i++)
+                {
+                    x1[i] = Convert.ToInt32(panel1.Controls["textBox" + jx1].Text);
+                    y1[i] = Convert.ToInt32(panel1.Controls["textBox" + jy1].Text);
+                    chart1.Series["1 образ"].Points.AddXY(x1[i], y1[i]);
+
+                    x2[i] = Convert.ToInt32(panel1.Controls["textBox" + jx2].Text);
+                    y2[i] = Convert.ToInt32(panel1.Controls["textBox" + jy2].Text);
+                    chart1.Series["2 образ"].Points.AddXY(x2[i], y2[i]);
+
+                    x3[i] = Convert.ToInt32(panel1.Controls["textBox" + jx3].Text);
+                    y3[i] = Convert.ToInt32(panel1.Controls["textBox" + jy3].Text);
+                    chart1.Series["3 образ"].Points.AddXY(x3[i], y3[i]);
+
+                    ex[i] = Convert.ToInt32(panel1.Controls["textBox" + jxex].Text);
+                    ey[i] = Convert.ToInt32(panel1.Controls["textBox" + jyex].Text);
+                    chart1.Series["Материал экзамена"].Points.AddXY(ex[i], ey[i]);
+
+                    jx1++;
+                    jy1++;
+                    jx2++;
+                    jy2++;
+                    jx3++;
+                    jy3++;
+                    jxex++;
+                    jyex++;
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            chart1.Series["Линия 1"].Points.Clear();
-            chart1.Series["Линия 2"].Points.Clear();
-            chart1.Series["Линия 3"].Points.Clear();
 
             int jx1 = 1;
             int jy1 = 26;
@@ -216,10 +255,17 @@ namespace KursovayRabota
             chart1.Series["2 образ"].Points.Clear();
             chart1.Series["3 образ"].Points.Clear();
             chart1.Series["Материал экзамена"].Points.Clear();
+            chart1.Series["Линия 1"].Points.Clear();
+            chart1.Series["Линия 2"].Points.Clear();
+            chart1.Series["Линия 3"].Points.Clear();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            chart1.Series["Линия 1"].Points.Clear();
+            chart1.Series["Линия 2"].Points.Clear();
+            chart1.Series["Линия 3"].Points.Clear();
+
             label8.Text = "";
             Mx1 = 0; Mx2 = 0; Mx3 = 0;
             My1 = 0; My2 = 0; My3 = 0;
@@ -473,9 +519,52 @@ namespace KursovayRabota
             chart1.Series["Линия 3"].Points.AddXY(xline3n, yline3n);
             chart1.Series["Линия 3"].Points.AddXY(xline3k, yline3k);
 
-            //label8.Text += ($"\nyline1n = {yline1n:0.##} yline1k = {yline1k:0.##}");
+
+
 
             //
+
+            label9.Text = "1 образ";
+            int test = 0;
+            for (int i = 0; i < 25; i++)
+            {
+                if ((b1[0, 0] * Convert.ToDouble(ex[i]) + b1[1, 0] * Convert.ToDouble(ey[i]) + p1) >= 0 && (b3[0, 0] * Convert.ToDouble(ex[i]) + b3[1, 0] * Convert.ToDouble(ey[i]) + p3) >= 0)
+                {
+                    test++;
+                    label9.Text += ($"\n({ex[i]};{ey[i]})");
+                }
+            }
+            label9.Text += ($"\nСум= {test}");
+
+            label11.Text = "2 образ";
+            int test1 = 0;
+            for (int i = 0; i < 25; i++)
+            {
+                if ((b1[0, 0] * Convert.ToDouble(ex[i]) + b1[1, 0] * Convert.ToDouble(ey[i]) + p1) <= 0 && (b2[0, 0] * Convert.ToDouble(ex[i]) + b2[1, 0] * Convert.ToDouble(ey[i]) + p2) >= 0)
+                {
+                    test1++;
+                    label11.Text += ($"\n({ex[i]};{ey[i]})");
+                }
+            }
+            label11.Text += ($"\nСум= {test1}");
+
+            label10.Text = "3 образ";
+            int test2 = 0;
+            for (int i = 0; i < 25; i++)
+            {
+                if ((b3[0, 0] * Convert.ToDouble(ex[i]) + b3[1, 0] * Convert.ToDouble(ey[i]) + p3) <= 0 && (b2[0, 0] * Convert.ToDouble(ex[i]) + b2[1, 0] * Convert.ToDouble(ey[i]) + p2) <= 0)
+                {
+                    test2++;
+                    label10.Text += ($"\n({ex[i]};{ey[i]})");
+                }
+            }
+            label10.Text += ($"\nСум= {test2}");
+            //
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
