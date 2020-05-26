@@ -1,0 +1,9 @@
+C:\Users\Sollw\source\repos\KursovayRabota\bin\Release\KursovayRabota.exe.config
+C:\Users\Sollw\source\repos\KursovayRabota\bin\Release\KursovayRabota.exe
+C:\Users\Sollw\source\repos\KursovayRabota\bin\Release\KursovayRabota.pdb
+C:\Users\Sollw\source\repos\KursovayRabota\obj\Release\KursovayRabota.csprojAssemblyReference.cache
+C:\Users\Sollw\source\repos\KursovayRabota\obj\Release\KursovayRabota.Form1.resources
+C:\Users\Sollw\source\repos\KursovayRabota\obj\Release\KursovayRabota.Properties.Resources.resources
+C:\Users\Sollw\source\repos\KursovayRabota\obj\Release\KursovayRabota.csproj.GenerateResource.cache
+C:\Users\Sollw\source\repos\KursovayRabota\obj\Release\KursovayRabota.exe
+C:\Users\Sollw\source\repos\KursovayRabota\obj\Release\KursovayRabota.pdb

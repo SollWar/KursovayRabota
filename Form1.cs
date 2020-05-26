@@ -90,18 +90,7 @@ namespace KursovayRabota
         double yline3n = 0;
         double yline3k = 0;
 
-        int avrx1 = 0; int avry1 = 0;
-        int sigmax1 = 0; int sigmay1 = 0;
-
-        int avrx2 = 0; int avry2 = 0;
-        int sigmax2 = 0; int sigmay2 = 0;
-
-        int avrx3 = 0; int avry3 = 0;
-        int sigmax3 = 0; int sigmay3 = 0;
-
-        int avrxE = 0; int avryE = 0;
-        int sigmaxE = 0; int sigmayE = 0;
-
+        bool otladka = false;
 
         public Form1()
         {
@@ -267,6 +256,10 @@ namespace KursovayRabota
             chart1.Series["Линия 1"].Points.Clear();
             chart1.Series["Линия 2"].Points.Clear();
             chart1.Series["Линия 3"].Points.Clear();
+
+            label9.Text = "1 образ" ;
+            label11.Text = "2 образ";
+            label10.Text = "3 образ";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -368,17 +361,6 @@ namespace KursovayRabota
             Sigm3[1, 0] = Kxy3;
             Sigm3[1, 1] = Dy3;
 
-            label8.Text += "\nSigm1 \n";
-
-            for (int i = 0; i < 2; i++)
-            {
-                for (int j = 0; j < 2; j++)
-                {
-                    label8.Text += ($"{Sigm1[i,j]:0.##} ");
-                }
-                label8.Text += ($"\n");
-            }
-            
             //
 
 
@@ -399,17 +381,6 @@ namespace KursovayRabota
             SigmL3[1, 0] = (Sigm3[1, 0] * 25 + Sigm3[1, 0] * 25) / 50;
             SigmL3[1, 1] = (Sigm3[1, 1] * 25 + Sigm3[1, 1] * 25) / 50;
 
-            label8.Text += "\nSigmL1 \n";
-
-            for (int i = 0; i < 2; i++)
-            {
-                for (int j = 0; j < 2; j++)
-                {
-                    label8.Text += ($"{SigmL1[i, j]:0.##} ");
-                }
-                label8.Text += ($"\n");
-            }
-
             //
 
 
@@ -428,17 +399,6 @@ namespace KursovayRabota
             ObrSigmL3[0, 1] = SigmL3[0, 1] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
             ObrSigmL3[1, 0] = SigmL3[1, 0] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
             ObrSigmL3[1, 1] = SigmL3[0, 0] / (SigmL3[0, 0] * SigmL3[1, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
-
-            label8.Text += "\nObrSigmL1 \n";
-
-            for (int i = 0; i < 2; i++)
-            {
-                for (int j = 0; j < 2; j++)
-                {
-                    label8.Text += ($"{ObrSigmL1[i, j]}   ");
-                }
-                label8.Text += ($"\n");
-            }
 
             //
 
@@ -475,16 +435,6 @@ namespace KursovayRabota
             b3[0, 0] = ObrSigmL3[0, 0] * M1_M3[0, 0] + ObrSigmL3[0, 1] * M1_M3[1, 0];
             b3[1, 0] = ObrSigmL3[1, 0] * M1_M3[0, 0] + ObrSigmL3[1, 1] * M1_M3[1, 0];
 
-            label8.Text += "\nb1 \n";
-
-            for (int i = 0; i < 2; i++)
-            {
-                for (int j = 0; j < 1; j++)
-                {
-                    label8.Text += ($"{b1[i, j]}   ");
-                }
-                label8.Text += ($"\n");
-            }
             //
 
 
@@ -504,7 +454,7 @@ namespace KursovayRabota
             vr3 = vrm3[0, 0] * M1_M3[0, 0] + vrm3[0, 1] * M1_M3[1, 0];
 
             p1 = vr1 * (-0.5); p2 = vr2 * (-0.5); p3 = vr3 * (-0.5);
-            label8.Text += ($"\nvr1 = {vr1} vr2 = {vr2:0.##} vr3 = {vr3:0.##}");
+            label8.Text += ($"\nvr1 = {vr1:0.##} vr2 = {vr2:0.##} vr3 = {vr3:0.##}");
             label8.Text += ($"\np1 = {p1:0.##} p2 = {p2:0.##} p3 = {p3:0.##}");
             //
 
@@ -574,6 +524,18 @@ namespace KursovayRabota
         private void chart1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (otladka == false)
+                this.Width = 1018;
+            if (otladka == true)
+                this.Width = 797;
+            if (otladka == true)
+                otladka = false;
+            else
+                otladka = true;
         }
     }
 }
