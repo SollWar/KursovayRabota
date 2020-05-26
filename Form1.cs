@@ -255,8 +255,8 @@ namespace KursovayRabota
             Mx1 /= 25; Mx2 /= 25; Mx3 /= 25;
             My1 /= 25; My2 /= 25; My3 /= 25;
 
-            label8.Text += ($"Mx1 = {Mx1} Mx2 = {Mx2} Mx3 = {Mx3}");
-            label8.Text += ($"\nMy1 = {My1} My2 = {My2} Mx3 = {My3}");
+            label8.Text += ($"Mx1 = {Mx1:0.##} Mx2 = {Mx2:0.##} Mx3 = {Mx3:0.##}");
+            label8.Text += ($"\nMy1 = {My1:0.##} My2 = {My2:0.##} Mx3 = {My3:0.##}");
             //
 
 
@@ -273,8 +273,8 @@ namespace KursovayRabota
             }
             Dx1 /= 24; Dx2 /= 24; Dx3 /= 24;
             Dy1 /= 24; Dy2 /= 24; Dy3 /= 24;
-            label8.Text += ($"\nDx1 = {Dx1} Dx2 = {Dx2} Dx3 = {Dx3}");
-            label8.Text += ($"\nDy1 = {Dy1} Dy2 = {Dy2} Dy3 = {Dy3}");
+            label8.Text += ($"\nDx1 = {Dx1:0.##} Dx2 = {Dx2:0.##} Dx3 = {Dx3:0.##}");
+            label8.Text += ($"\nDy1 = {Dy1:0.##} Dy2 = {Dy2:0.##} Dy3 = {Dy3:0.##}");
             //
 
 
@@ -286,7 +286,7 @@ namespace KursovayRabota
                 Kxy3 += ((x3[i] - Mx3) * (y3[i] - My3));
             }
             Kxy1 /= 25; Kxy2 /= 25; Kxy3 /= 25;
-            label8.Text += ($"\nKxy1 = {Kxy1} Kxy2 = {Kxy2} Kxy3 = {Kxy3}");
+            label8.Text += ($"\nKxy1 = {Kxy1:0.##} Kxy2 = {Kxy2:0.##} Kxy3 = {Kxy3:0.##}");
             //
 
 
@@ -306,12 +306,15 @@ namespace KursovayRabota
             Sigm3[1, 0] = Kxy3;
             Sigm3[1, 1] = Dy3;
 
+            label8.Text += "\nSigm1 \n";
+
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    label8.Text += ($"\nKxy1 = {Kxy1} Kxy2 = {Kxy2} Kxy3 = {Kxy3}");
+                    label8.Text += ($"{Sigm1[i,j]:0.##} ");
                 }
+                label8.Text += ($"\n");
             }
             
             //
@@ -333,24 +336,48 @@ namespace KursovayRabota
             SigmL3[0, 1] = (Sigm3[0, 1] * 25 + Sigm3[0, 1] * 25) / 50;
             SigmL3[1, 0] = (Sigm3[1, 0] * 25 + Sigm3[1, 0] * 25) / 50;
             SigmL3[1, 1] = (Sigm3[1, 1] * 25 + Sigm3[1, 1] * 25) / 50;
+
+            label8.Text += "\nSigmL1 \n";
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    label8.Text += ($"{SigmL1[i, j]:0.##} ");
+                }
+                label8.Text += ($"\n");
+            }
+
             //
 
 
             //
-            ObrSigmL1[0, 0] = SigmL1[1, 1] / (SigmL1[0, 0] * SigmL1[0, 1] - SigmL1[0, 1] * SigmL1[1, 0]);
+            ObrSigmL1[0, 0] = SigmL1[1, 1] / (SigmL1[0, 0] * SigmL1[1, 1] - SigmL1[0, 1] * SigmL1[1, 0]);
             ObrSigmL1[0, 1] = SigmL1[0, 1] / (SigmL1[0, 1] * SigmL1[1, 0] - SigmL1[0, 0] * SigmL1[1, 1]);
             ObrSigmL1[1, 0] = SigmL1[1, 0] / (SigmL1[0, 1] * SigmL1[1, 0] - SigmL1[0, 0] * SigmL1[1, 1]);
-            ObrSigmL1[1, 1] = SigmL1[0, 0] / (SigmL1[0, 0] * SigmL1[0, 1] - SigmL1[0, 1] * SigmL1[1, 0]);
+            ObrSigmL1[1, 1] = SigmL1[0, 0] / (SigmL1[0, 0] * SigmL1[1, 1] - SigmL1[0, 1] * SigmL1[1, 0]);
             //------//
-            ObrSigmL2[0, 0] = SigmL2[1, 1] / (SigmL2[0, 0] * SigmL2[0, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
+            ObrSigmL2[0, 0] = SigmL2[1, 1] / (SigmL2[0, 0] * SigmL2[1, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
             ObrSigmL2[0, 1] = SigmL2[0, 1] / (SigmL2[0, 1] * SigmL2[1, 0] - SigmL2[0, 0] * SigmL2[1, 1]);
             ObrSigmL2[1, 0] = SigmL2[1, 0] / (SigmL2[0, 1] * SigmL2[1, 0] - SigmL2[0, 0] * SigmL2[1, 1]);
-            ObrSigmL2[1, 1] = SigmL2[0, 0] / (SigmL2[0, 0] * SigmL2[0, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
+            ObrSigmL1[1, 1] = SigmL2[0, 0] / (SigmL2[0, 0] * SigmL2[1, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
             //------//
-            ObrSigmL3[0, 0] = SigmL3[1, 1] / (SigmL3[0, 0] * SigmL3[0, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
+            ObrSigmL3[0, 0] = SigmL3[1, 1] / (SigmL3[0, 0] * SigmL3[1, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
             ObrSigmL3[0, 1] = SigmL3[0, 1] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
             ObrSigmL3[1, 0] = SigmL3[1, 0] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
-            ObrSigmL3[1, 1] = SigmL3[0, 0] / (SigmL3[0, 0] * SigmL3[0, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
+            ObrSigmL3[1, 1] = SigmL3[0, 0] / (SigmL3[0, 0] * SigmL3[1, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
+
+            label8.Text += "\nObrSigmL1 \n";
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    label8.Text += ($"{ObrSigmL1[i, j]}   ");
+                }
+                label8.Text += ($"\n");
+            }
+
             //
 
 
@@ -384,6 +411,17 @@ namespace KursovayRabota
 
             b3[0, 0] = ObrSigmL3[0, 0] * M1_M3[0, 0] + ObrSigmL3[0, 1] * M1_M3[1, 0];
             b3[1, 0] = ObrSigmL3[1, 0] * M1_M3[0, 0] + ObrSigmL3[1, 1] * M1_M3[1, 0];
+
+            label8.Text += "\nb1 \n";
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 1; j++)
+                {
+                    label8.Text += ($"{b1[i, j]}   ");
+                }
+                label8.Text += ($"\n");
+            }
             //
 
 
@@ -402,8 +440,8 @@ namespace KursovayRabota
             vr3 = vrm3[0, 0] * M1_M3[0, 0] + vrm3[0, 1] * M1_M3[1, 0];
 
             p1 = vr1 * (-0.5); p2 = vr2 * (-0.5); p3 = vr3 * (-0.5);
-            label8.Text += ($"\nvr1 = {vr1} vr2 = {vr2} vr3 = {vr3}");
-            label8.Text += ($"\np1 = {p1} p2 = {p2} p3 = {p3}");
+            label8.Text += ($"\nvr1 = {vr1:0.##} vr2 = {vr2:0.##} vr3 = {vr3:0.##}");
+            label8.Text += ($"\np1 = {p1:0.##} p2 = {p2:0.##} p3 = {p3:0.##}");
             //
 
 
