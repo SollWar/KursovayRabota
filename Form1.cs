@@ -51,21 +51,21 @@ namespace KursovayRabota
         double[,] ObrSigmL2 = new double[2, 2];
         double[,] ObrSigmL3 = new double[2, 2];
 
-        double[,] M1_M2 = new double[0, 2];
-        double[,] M2_M3 = new double[0, 2];
-        double[,] M1_M3 = new double[0, 2];
+        double[,] M1_M2 = new double[2, 1];
+        double[,] M2_M3 = new double[2, 1];
+        double[,] M1_M3 = new double[2, 1];
 
-        double[,] M1___M2 = new double[2, 0];
-        double[,] M2___M3 = new double[2, 0];
-        double[,] M1___M3 = new double[2, 0];
+        double[,] M1___M2 = new double[1, 2];
+        double[,] M2___M3 = new double[1, 2];
+        double[,] M1___M3 = new double[1, 2];
 
-        double[,] b1 = new double[0, 2];
-        double[,] b2 = new double[0, 2];
-        double[,] b3 = new double[0, 2];
+        double[,] b1 = new double[2, 1];
+        double[,] b2 = new double[2, 1];
+        double[,] b3 = new double[2, 1];
 
-        double[,] vrm1 = new double[2, 0];
-        double[,] vrm2 = new double[2, 0];
-        double[,] vrm3 = new double[2, 0];
+        double[,] vrm1 = new double[1, 2];
+        double[,] vrm2 = new double[1, 2];
+        double[,] vrm3 = new double[1, 2];
 
         double vr1 = 0;
         double vr2 = 0;
@@ -217,7 +217,7 @@ namespace KursovayRabota
             Mx1 = 0; Mx2 = 0; Mx3 = 0;
             My1 = 0; My2 = 0; My3 = 0;
 
-            Dx1 = 0; Dx2 = 0; Dx2 = 0;
+            Dx1 = 0; Dx2 = 0; Dx3 = 0;
             Dy1 = 0; Dy2 = 0; Dy3 = 0;
 
             Kxy1 = 0; Kxy2 = 0; Kxy3 = 0;
@@ -305,6 +305,15 @@ namespace KursovayRabota
             Sigm3[0, 1] = Kxy3;
             Sigm3[1, 0] = Kxy3;
             Sigm3[1, 1] = Dy3;
+
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    label8.Text += ($"\nKxy1 = {Kxy1} Kxy2 = {Kxy2} Kxy3 = {Kxy3}");
+                }
+            }
+            
             //
 
 
@@ -342,6 +351,64 @@ namespace KursovayRabota
             ObrSigmL3[0, 1] = SigmL3[0, 1] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
             ObrSigmL3[1, 0] = SigmL3[1, 0] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
             ObrSigmL3[1, 1] = SigmL3[0, 0] / (SigmL3[0, 0] * SigmL3[0, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
+            //
+
+
+            //
+            M1_M2[0, 0] = Mx1 - Mx2;
+            M1_M2[1, 0] = My1 - My2;
+
+            M2_M3[0, 0] = Mx2 - Mx3;
+            M2_M3[1, 0] = My2 - My3;
+
+            M1_M3[0, 0] = Mx1 - Mx3;
+            M1_M3[1, 0] = My1 - My3;
+
+            M1___M2[0, 0] = Mx1 + Mx2;
+            M1___M2[0, 1] = My1 + My2;
+
+            M2___M3[0, 0] = Mx2 + Mx3;
+            M2___M3[0, 1] = My2 + My3;
+
+            M1___M3[0, 0] = Mx1 + Mx3;
+            M1___M3[0, 1] = My1 + My3;
+            //
+
+
+            //
+            b1[0, 0] = ObrSigmL1[0, 0] * M1_M2[0, 0] + ObrSigmL1[0, 1] * M1_M2[1, 0];
+            b1[1, 0] = ObrSigmL1[1, 0] * M1_M2[0, 0] + ObrSigmL1[1, 1] * M1_M2[1, 0];
+
+            b2[0, 0] = ObrSigmL2[0, 0] * M2_M3[0, 0] + ObrSigmL2[0, 1] * M2_M3[1, 0];
+            b2[1, 0] = ObrSigmL2[1, 0] * M2_M3[0, 0] + ObrSigmL2[1, 1] * M2_M3[1, 0];
+
+            b3[0, 0] = ObrSigmL3[0, 0] * M1_M3[0, 0] + ObrSigmL3[0, 1] * M1_M3[1, 0];
+            b3[1, 0] = ObrSigmL3[1, 0] * M1_M3[0, 0] + ObrSigmL3[1, 1] * M1_M3[1, 0];
+            //
+
+
+            //
+            vrm1[0, 0] = M1___M2[0, 0] * ObrSigmL1[0, 0] + M1___M2[0, 1] * ObrSigmL1[0, 1];
+            vrm1[0, 1] = M1___M2[0, 0] * ObrSigmL1[0, 1] + M1___M2[0, 1] * ObrSigmL1[1, 1];
+
+            vrm2[0, 0] = M2___M3[0, 0] * ObrSigmL2[0, 0] + M2___M3[0, 1] * ObrSigmL2[0, 1];
+            vrm2[0, 1] = M2___M3[0, 0] * ObrSigmL2[0, 1] + M2___M3[0, 1] * ObrSigmL2[1, 1];
+
+            vrm3[0, 0] = M1___M3[0, 0] * ObrSigmL3[0, 0] + M1___M3[0, 1] * ObrSigmL3[0, 1];
+            vrm3[0, 1] = M1___M3[0, 0] * ObrSigmL3[0, 1] + M1___M3[0, 1] * ObrSigmL3[1, 1];
+
+            vr1 = vrm1[0, 0] * M1_M2[0, 0] + vrm1[0, 1] * M1_M2[1, 0];
+            vr2 = vrm2[0, 0] * M2_M3[0, 0] + vrm2[0, 1] * M2_M3[1, 0];
+            vr3 = vrm3[0, 0] * M1_M3[0, 0] + vrm3[0, 1] * M1_M3[1, 0];
+
+            p1 = vr1 * (-0.5); p2 = vr2 * (-0.5); p3 = vr3 * (-0.5);
+            label8.Text += ($"\nvr1 = {vr1} vr2 = {vr2} vr3 = {vr3}");
+            label8.Text += ($"\np1 = {p1} p2 = {p2} p3 = {p3}");
+            //
+
+
+            //
+
             //
         }
     }
