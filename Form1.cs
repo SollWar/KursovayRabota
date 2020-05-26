@@ -39,7 +39,7 @@ namespace KursovayRabota
         double Kxy2 = 0;
         double Kxy3 = 0;
 
-        double[,] Sigm1 = new double[2,2];
+        double[,] Sigm1 = new double[2, 2];
         double[,] Sigm2 = new double[2, 2];
         double[,] Sigm3 = new double[2, 2];
 
@@ -184,6 +184,7 @@ namespace KursovayRabota
             int jxex = 151;
             int jyex = 176;
 
+
             for (int i = 0; i < 25; i++)
             {
                 panel1.Controls["textBox" + jx1].Text = "";
@@ -212,7 +213,136 @@ namespace KursovayRabota
 
         private void button3_Click(object sender, EventArgs e)
         {
+            label8.Text = "";
+            Mx1 = 0; Mx2 = 0; Mx3 = 0;
+            My1 = 0; My2 = 0; My3 = 0;
 
+            Dx1 = 0; Dx2 = 0; Dx2 = 0;
+            Dy1 = 0; Dy2 = 0; Dy3 = 0;
+
+            Kxy1 = 0; Kxy2 = 0; Kxy3 = 0;
+
+            for (int i = 0; i < 2; i++)
+                for (int j = 0; j < 2; j++)
+                {
+                    Sigm1[i, j] = 0;
+                    Sigm2[i, j] = 0;
+                    Sigm3[i, j] = 0;
+                }
+
+            for (int i = 0; i < 2; i++)
+                for (int j = 0; j < 2; j++)
+                {
+                    SigmL1[i, j] = 0;
+                    SigmL2[i, j] = 0;
+                    SigmL3[i, j] = 0;
+                }
+
+            for (int i = 0; i < 2; i++)
+                for (int j = 0; j < 2; j++)
+                {
+                    ObrSigmL1[i, j] = 0;
+                    ObrSigmL2[i, j] = 0;
+                    ObrSigmL3[i, j] = 0;
+                }
+
+            //
+            for (int i = 0; i < 25; i ++)
+            {
+                Mx1 += x1[i]; Mx2 += x2[i]; Mx3 += x3[i];
+                My1 += y1[i]; My2 += y2[i]; My3 += y3[i];
+            }
+            Mx1 /= 25; Mx2 /= 25; Mx3 /= 25;
+            My1 /= 25; My2 /= 25; My3 /= 25;
+
+            label8.Text += ($"Mx1 = {Mx1} Mx2 = {Mx2} Mx3 = {Mx3}");
+            label8.Text += ($"\nMy1 = {My1} My2 = {My2} Mx3 = {My3}");
+            //
+
+
+            //
+            for (int i = 0; i < 25; i++)
+            {
+                Dx1 += ((x1[i] - Mx1) * (x1[i] - Mx1));
+                Dx2 += ((x2[i] - Mx2) * (x2[i] - Mx2));
+                Dx3 += ((x3[i] - Mx3) * (x3[i] - Mx3));
+
+                Dy1 += ((y1[i] - My1) * (y1[i] - My1));
+                Dy2 += ((y2[i] - My2) * (y2[i] - My2));
+                Dy3 += ((y3[i] - My3) * (y3[i] - My3));
+            }
+            Dx1 /= 24; Dx2 /= 24; Dx3 /= 24;
+            Dy1 /= 24; Dy2 /= 24; Dy3 /= 24;
+            label8.Text += ($"\nDx1 = {Dx1} Dx2 = {Dx2} Dx3 = {Dx3}");
+            label8.Text += ($"\nDy1 = {Dy1} Dy2 = {Dy2} Dy3 = {Dy3}");
+            //
+
+
+            //
+            for (int i = 0; i < 25; i++)
+            {
+                Kxy1 += ((x1[i] - Mx1) * (y1[i] - My1));
+                Kxy2 += ((x2[i] - Mx2) * (y2[i] - My2));
+                Kxy3 += ((x3[i] - Mx3) * (y3[i] - My3));
+            }
+            Kxy1 /= 25; Kxy2 /= 25; Kxy3 /= 25;
+            label8.Text += ($"\nKxy1 = {Kxy1} Kxy2 = {Kxy2} Kxy3 = {Kxy3}");
+            //
+
+
+            //
+            Sigm1[0, 0] = Dx1;
+            Sigm1[0, 1] = Kxy1;
+            Sigm1[1, 0] = Kxy1;
+            Sigm1[1, 1] = Dy1;
+            //------//
+            Sigm2[0, 0] = Dx2;
+            Sigm2[0, 1] = Kxy2;
+            Sigm2[1, 0] = Kxy2;
+            Sigm2[1, 1] = Dy2;
+            //------//
+            Sigm3[0, 0] = Dx3;
+            Sigm3[0, 1] = Kxy3;
+            Sigm3[1, 0] = Kxy3;
+            Sigm3[1, 1] = Dy3;
+            //
+
+
+
+            //
+            SigmL1[0, 0] = (Sigm1[0, 0] * 25 + Sigm2[0, 0] * 25) / 50;
+            SigmL1[0, 1] = (Sigm1[0, 1] * 25 + Sigm1[0, 1] * 25) / 50;
+            SigmL1[1, 0] = (Sigm1[1, 0] * 25 + Sigm1[1, 0] * 25) / 50;
+            SigmL1[1, 1] = (Sigm1[1, 1] * 25 + Sigm1[1, 1] * 25) / 50;
+            //------//
+            SigmL2[0, 0] = (Sigm2[0, 0] * 25 + Sigm2[0, 0] * 25) / 50;
+            SigmL2[0, 1] = (Sigm2[0, 1] * 25 + Sigm2[0, 1] * 25) / 50;
+            SigmL2[1, 0] = (Sigm2[1, 0] * 25 + Sigm2[1, 0] * 25) / 50;
+            SigmL2[1, 1] = (Sigm2[1, 1] * 25 + Sigm2[1, 1] * 25) / 50;
+            //------//
+            SigmL3[0, 0] = (Sigm3[0, 0] * 25 + Sigm3[0, 0] * 25) / 50;
+            SigmL3[0, 1] = (Sigm3[0, 1] * 25 + Sigm3[0, 1] * 25) / 50;
+            SigmL3[1, 0] = (Sigm3[1, 0] * 25 + Sigm3[1, 0] * 25) / 50;
+            SigmL3[1, 1] = (Sigm3[1, 1] * 25 + Sigm3[1, 1] * 25) / 50;
+            //
+
+
+            //
+            ObrSigmL1[0, 0] = SigmL1[1, 1] / (SigmL1[0, 0] * SigmL1[0, 1] - SigmL1[0, 1] * SigmL1[1, 0]);
+            ObrSigmL1[0, 1] = SigmL1[0, 1] / (SigmL1[0, 1] * SigmL1[1, 0] - SigmL1[0, 0] * SigmL1[1, 1]);
+            ObrSigmL1[1, 0] = SigmL1[1, 0] / (SigmL1[0, 1] * SigmL1[1, 0] - SigmL1[0, 0] * SigmL1[1, 1]);
+            ObrSigmL1[1, 1] = SigmL1[0, 0] / (SigmL1[0, 0] * SigmL1[0, 1] - SigmL1[0, 1] * SigmL1[1, 0]);
+            //------//
+            ObrSigmL2[0, 0] = SigmL2[1, 1] / (SigmL2[0, 0] * SigmL2[0, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
+            ObrSigmL2[0, 1] = SigmL2[0, 1] / (SigmL2[0, 1] * SigmL2[1, 0] - SigmL2[0, 0] * SigmL2[1, 1]);
+            ObrSigmL2[1, 0] = SigmL2[1, 0] / (SigmL2[0, 1] * SigmL2[1, 0] - SigmL2[0, 0] * SigmL2[1, 1]);
+            ObrSigmL2[1, 1] = SigmL2[0, 0] / (SigmL2[0, 0] * SigmL2[0, 1] - SigmL2[0, 1] * SigmL2[1, 0]);
+            //------//
+            ObrSigmL3[0, 0] = SigmL3[1, 1] / (SigmL3[0, 0] * SigmL3[0, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
+            ObrSigmL3[0, 1] = SigmL3[0, 1] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
+            ObrSigmL3[1, 0] = SigmL3[1, 0] / (SigmL3[0, 1] * SigmL3[1, 0] - SigmL3[0, 0] * SigmL3[1, 1]);
+            ObrSigmL3[1, 1] = SigmL3[0, 0] / (SigmL3[0, 0] * SigmL3[0, 1] - SigmL3[0, 1] * SigmL3[1, 0]);
+            //
         }
     }
 }
