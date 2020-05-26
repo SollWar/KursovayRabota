@@ -24,8 +24,10 @@ namespace KursovayRabota
 
         double Mx1 = 0;
         double My1 = 0;
+
         double Mx2 = 0;
         double My2 = 0;
+
         double Mx3 = 0;
         double My3 = 0;
 
@@ -190,6 +192,8 @@ namespace KursovayRabota
                 panel1.Controls["textBox" + jy2].Text = "";
                 panel1.Controls["textBox" + jx3].Text = "";
                 panel1.Controls["textBox" + jy3].Text = "";
+                panel1.Controls["textBox" + jxex].Text = "";
+                panel1.Controls["textBox" + jyex].Text = "";
                 jx1++;
                 jy1++;
                 jx2++;
@@ -200,10 +204,15 @@ namespace KursovayRabota
                 jyex++;
             }
 
-
             chart1.Series["1 образ"].Points.Clear();
             chart1.Series["2 образ"].Points.Clear();
             chart1.Series["3 образ"].Points.Clear();
+            chart1.Series["Материал экзамена"].Points.Clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
